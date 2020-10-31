@@ -1,3 +1,10 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SOURCES
+% British: http://ecpmlangues.u-strasbg.fr/cover-letters-layout.html
+%          https://www.dailywritingtips.com/how-to-format-a-uk-business-letter/
+%          http://www.ukstudentlife.com/English/Writing.htm#BusinessLetter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \documentclass[a4paper,12pt]{article}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -49,7 +56,16 @@
 \usepackage[\lang]{babel}
 
 % Opening
-\newcommand{\opening}[1]{#1\vspace{\baselineskip}}
+\ifthenelse{\equal{\lang}{french}}
+    {
+        \newcommand{\opening}[1]{#1\vspace{\baselineskip}}
+    }
+    {
+        \ifthenelse{\equal{\lang}{british}}
+            {
+                \newcommand{\opening}[1]{#1}
+            }
+    }
 
 % Closing
 \ifthenelse{\equal{\lang}{french}}
@@ -61,10 +77,10 @@
             {                
                 \newcommand{\closing}[1]
                     {
-                        \vspace{\baselineskip}
-                        \begin{center}
+                        % \vspace{\baselineskip}
+                        \begin{flushright}
                             #1
-                        \end{center}
+                        \end{flushright}
                     }
             }
     }
@@ -77,7 +93,7 @@
 {
     \ifthenelse{\equal{\lang}{british}}
     {
-        \newcommand{\sign}{\begin{center}\signature\end{center}}
+        \newcommand{\sign}{\begin{flushright}\signature\end{flushright}}
     }
 }
 
@@ -110,45 +126,43 @@
         \ifthenelse{\equal{\lang}{british}}
         {
        	 	\begin{flushright}
-    	    	\noindent\noindent\sender
-                \\~\\
-                \today,
+    	    	\noindent\sender
     	    \end{flushright}
-    	    
+    	    %
     	    \noindent\recipient
+            %
+            \begin{flushright}
+                \today
+                \vspace{\baselineskip}
+            \end{flushright}
 
-            \vspace{\baselineskip}
-            {\noindent}Subject: \object
-            \vspace{\baselineskip}
+            % \vspace{\baselineskip}
+            \noindent{\textbf{{Re: \object}}}
+            % \vspace{\baselineskip}
         }
         {
             Unknown language ``\lang''
         }
     }
 
+    \ifthenelse{\equal{\lang}{british}}
+        {
+            \setlength{\parindent}{0mm}
+            \setlength{\parskip}{\baselineskip}
+        }
+
     %--------------------------------------
     % Body
     %--------------------------------------
     \opening{Dear Sir or Madam,}
 
-    \lipsum[1-5]
+    \lipsum[1-3]
 
     \closing{Best Regards,}
 
-    \ifthenelse{\equal{\lang}{french}}
-        {
-            \begin{flushright}
-                \signature
-            \end{flushright}
-        }
-        {
-            \ifthenelse{\equal{\lang}{british}}
-                {
-                    \center
-                    \signature
-                }
-                {}
-        }
+    % Todo: hand-written signature. In English: above the typed one.
+
+    \sign
 
 
 
