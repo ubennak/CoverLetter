@@ -83,9 +83,9 @@
                 \newcommand{\closing}[1]
                     {
                         \vspace{-\parskip}
-                        \begin{flushright}
+                        \rightcol{
                             #1
-                        \end{flushright}
+                        }
                     }
             }
     }
@@ -106,17 +106,31 @@
     \ifthenelse{\equal{\lang}{british}}
     {
         \newcommand{\sign}{
-        	\begin{flushright}
-                \vspace{-0.5\baselineskip}
+        	\rightcol{
+                % \vspace{-0.5\baselineskip}
     			\includegraphics[scale=0.8]{./signature.png}
     			
-                \vspace{-0.5\baselineskip}              
+                % \vspace{-0.5\baselineskip}              
         		\signature
-        	\end{flushright}
+        	}
         }
     }
 }
 
+% Move right but align to the left of paragraph
+\def\changemargin#1#2{
+        \list{}
+        {\rightmargin#2\leftmargin#1}
+        \item[]
+    }
+\let\endchangemargin=\endlist
+
+\newcommand{\rightcol}[1]
+    {
+        \begin{changemargin}{0.65\textwidth}{0mm}
+            #1
+        \end{changemargin} 
+    }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DOCUMENT
@@ -131,32 +145,31 @@
     {
 	    {\noindent\sender}
         
-        \begin{flushright}
-        	\noindent\recipient
-        \end{flushright}
+        \rightcol{\noindent\recipient}
 
         \vspace{\baselineskip}
-        Objet : \object
+        \noindent{Objet : \object}
 
-        \begin{flushright}
+        \rightcol{
         	\senderlocation,
             le \today,
-        \end{flushright}
+            \vspace{\baselineskip}
+        }
     }
     {
         \ifthenelse{\equal{\lang}{british}}
         {
-       	 	\begin{flushright}
+       	 	\rightcol{
     	    	\noindent\sender
-    	    \end{flushright}
+            }
     	    %
     	    \noindent\recipient
             %
-            \begin{flushright}
+            \rightcol{
                 \today
                 % \vspace{\baselineskip}
-            \end{flushright}
-
+            }
+            %
             \noindent{\textbf{{Re: \object}}}
         }
         {
