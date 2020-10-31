@@ -1,11 +1,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% DESCRIPTION
+%   A LaTeX cover letter template that adapts its formatting to the conventions
+%   of various countries, including France and UK.
+%
 % SOURCES
-% British: http://ecpmlangues.u-strasbg.fr/cover-letters-layout.html
-%          https://www.dailywritingtips.com/how-to-format-a-uk-business-letter/
-%          http://www.ukstudentlife.com/English/Writing.htm#BusinessLetter
+%   British/American: http://ecpmlangues.u-strasbg.fr/cover-letters-layout.html
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,11pt]{article}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PACKAGES
@@ -20,6 +24,7 @@
 \usepackage{ifthen}
 \usepackage{hyperref}
 \usepackage{lipsum}
+\usepackage{graphicx}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PARAMETERS 
@@ -35,17 +40,17 @@
     {\textbf{Job Larigou}
      \\1 straed an aod
      \\29292 Porzh-Izel
-     \\France
-%     \\~
-%     \\+33751215465
-%     \\job.larigou@thatmail.com
+     \\\textsc{France}
+%     \vspace{0.5\baselineskip}
+     \\\telephone
+     \\\href{mailto:{\email}}{\email}
     }
 
 \newcommand{\recipient}
-    {\textbf{Your Dream Company}
+    {\textbf{The Dream Company}
      \\22 straed meur
      \\29999 Ploubennak
-     \\France
+     \\\textsc{France}
     }
 
 \newcommand{\object}{Application for my dream post}
@@ -77,7 +82,7 @@
             {                
                 \newcommand{\closing}[1]
                     {
-                        % \vspace{\baselineskip}
+                        \vspace{-\parskip}
                         \begin{flushright}
                             #1
                         \end{flushright}
@@ -88,12 +93,27 @@
 % Signature
 \ifthenelse{\equal{\lang}{french}}
 {
-    \newcommand{\sign}{\begin{flushright}\signature\end{flushright}}
+    \newcommand{\sign}{
+    	\begin{flushright}
+    		\signature
+
+            \vspace{0.5\baselineskip}
+    		\includegraphics[scale=0.8]{./signature.png}
+		\end{flushright}
+	}
 }
 {
     \ifthenelse{\equal{\lang}{british}}
     {
-        \newcommand{\sign}{\begin{flushright}\signature\end{flushright}}
+        \newcommand{\sign}{
+        	\begin{flushright}
+                \vspace{-0.5\baselineskip}
+    			\includegraphics[scale=0.8]{./signature.png}
+    			
+                \vspace{-0.5\baselineskip}              
+        		\signature
+        	\end{flushright}
+        }
     }
 }
 
@@ -102,6 +122,8 @@
 % DOCUMENT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+	\pagestyle{empty}
+	
     %--------------------------------------
     % Header
     %--------------------------------------
@@ -133,12 +155,10 @@
             %
             \begin{flushright}
                 \today
-                \vspace{\baselineskip}
+                % \vspace{\baselineskip}
             \end{flushright}
 
-            % \vspace{\baselineskip}
             \noindent{\textbf{{Re: \object}}}
-            % \vspace{\baselineskip}
         }
         {
             Unknown language ``\lang''
@@ -148,7 +168,7 @@
     \ifthenelse{\equal{\lang}{british}}
         {
             \setlength{\parindent}{0mm}
-            \setlength{\parskip}{\baselineskip}
+            \setlength{\parskip}{0.8\baselineskip}
         }
 
     %--------------------------------------
@@ -158,27 +178,7 @@
 
     \lipsum[1-3]
 
-    \closing{Best Regards,}
-
-    % Todo: hand-written signature. In English: above the typed one.
+    \closing{Yours Faithfully,}
 
     \sign
-
-
-
-
-
-    % \ifthenelse{\equal{\lang}{french}}
-    % {
-    %     Language \lang
-    % }
-    % {
-    %     \ifthenelse{\equal{\lang}{british}}
-    %     {
-    %         Language british
-    %     }
-    %     {
-    %         Unknown language ``\lang''
-    %     }
-    % }
 \end{document}
