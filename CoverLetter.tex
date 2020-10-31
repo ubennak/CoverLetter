@@ -29,7 +29,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PARAMETERS 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\lang}{british} % Allowed: french, british
+\newcommand{\lang}{british} % Allowed: french, british, american, english (=british)
 
 \newcommand{\signature}{Job Larigou}
 \newcommand{\telephone}{+33751215465}                
@@ -63,12 +63,18 @@
 % Opening
 \ifthenelse{\equal{\lang}{french}}
     {
-        \newcommand{\opening}[1]{#1\vspace{\baselineskip}}
+        \newcommand{\opening}[1]{#1,\vspace{\baselineskip}}
     }
     {
-        \ifthenelse{\equal{\lang}{british}}
+        \ifthenelse{\equal{\lang}{british} \OR \equal{\lang}{english}}
             {
-                \newcommand{\opening}[1]{#1}
+                \newcommand{\opening}[1]{#1,}
+            }
+            {
+                \ifthenelse{\equal{\lang}{american}}
+                    {
+                        \newcommand{\opening}[1]{#1:}
+                    }
             }
     }
 
@@ -78,7 +84,7 @@
         \newcommand{\closing}[1]{\vspace{\baselineskip}#1}
     }
     {
-        \ifthenelse{\equal{\lang}{british}}
+        \ifthenelse{\equal{\lang}{british} \OR \equal{\lang}{english}}
             {                
                 \newcommand{\closing}[1]
                     {
@@ -86,6 +92,15 @@
                         \rightcol{
                             #1
                         }
+                    }
+            }
+            {
+                \ifthenelse{\equal{\lang}{american}}
+                    {
+                        \newcommand{\closing}[1]
+                            {
+                                #1
+                            }
                     }
             }
     }
@@ -103,7 +118,7 @@
 	}
 }
 {
-    \ifthenelse{\equal{\lang}{british}}
+    \ifthenelse{\equal{\lang}{british} \OR \equal{\lang}{english}}
     {
         \newcommand{\sign}{
         	\rightcol{
@@ -114,6 +129,18 @@
         		\signature
         	}
         }
+    }
+    {
+        \ifthenelse{\equal{\lang}{american}}
+            {
+                \newcommand{\sign}{
+                    % \vspace{-0.5\baselineskip}
+                    \includegraphics[scale=0.8]{./signature.png}
+                    
+                    % \vspace{-0.5\baselineskip}              
+                    \signature
+                }
+            }
     }
 }
 
@@ -157,7 +184,7 @@
         }
     }
     {
-        \ifthenelse{\equal{\lang}{british}}
+        \ifthenelse{\equal{\lang}{british} \OR \equal{\lang}{english} \OR \equal{\lang}{american}}
         {
        	 	\rightcol{
     	    	\noindent\sender
@@ -173,11 +200,23 @@
             \noindent{\textbf{{Re: \object}}}
         }
         {
-            Unknown language ``\lang''
+            \ifthenelse{\equal{\lang}{american}}
+                {
+                    \noindent\sender
+
+                    \vspace{\baselineskip}
+                    \noindent\today
+
+                    \vspace{\baselineskip}
+                    \noindent\recipient
+                }
+                {
+                    Unknown language ``\lang''
+                }
         }
     }
 
-    \ifthenelse{\equal{\lang}{british}}
+    \ifthenelse{\equal{\lang}{british} \OR \equal{\lang}{english} \OR \equal{\lang}{american}}
         {
             \setlength{\parindent}{0mm}
             \setlength{\parskip}{0.8\baselineskip}
@@ -186,7 +225,7 @@
     %--------------------------------------
     % Body
     %--------------------------------------
-    \opening{Dear Sir or Madam,}
+    \opening{Dear Sir or Madam} % To be entered without punctuation
 
     \lipsum[1-3]
 
