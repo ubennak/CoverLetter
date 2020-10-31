@@ -1,0 +1,170 @@
+\documentclass[a4paper,12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PACKAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{ifthen}
+\usepackage{hyperref}
+\usepackage{lipsum}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PARAMETERS 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\lang}{british} % Allowed: french, british
+
+\newcommand{\signature}{Job Larigou}
+\newcommand{\telephone}{+33751215465}                
+\newcommand{\email}{job.larigou@thatmail.com}
+\newcommand{\senderlocation}{Porzh-Izel}
+
+\newcommand{\sender}
+    {\textbf{Job Larigou}
+     \\1 straed an aod
+     \\29292 Porzh-Izel
+     \\France
+%     \\~
+%     \\+33751215465
+%     \\job.larigou@thatmail.com
+    }
+
+\newcommand{\recipient}
+    {\textbf{Your Dream Company}
+     \\22 straed meur
+     \\29999 Ploubennak
+     \\France
+    }
+
+\newcommand{\object}{Application for my dream post}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COMMANDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[\lang]{babel}
+
+% Opening
+\newcommand{\opening}[1]{#1\vspace{\baselineskip}}
+
+% Closing
+\ifthenelse{\equal{\lang}{french}}
+    {
+        \newcommand{\closing}[1]{\vspace{\baselineskip}#1}
+    }
+    {
+        \ifthenelse{\equal{\lang}{british}}
+            {                
+                \newcommand{\closing}[1]
+                    {
+                        \vspace{\baselineskip}
+                        \begin{center}
+                            #1
+                        \end{center}
+                    }
+            }
+    }
+
+% Signature
+\ifthenelse{\equal{\lang}{french}}
+{
+    \newcommand{\sign}{\begin{flushright}\signature\end{flushright}}
+}
+{
+    \ifthenelse{\equal{\lang}{british}}
+    {
+        \newcommand{\sign}{\begin{center}\signature\end{center}}
+    }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+    %--------------------------------------
+    % Header
+    %--------------------------------------
+    \ifthenelse{\equal{\lang}{french}}
+    {
+	    {\noindent\sender}
+        
+        \begin{flushright}
+        	\noindent\recipient
+        \end{flushright}
+
+        \vspace{\baselineskip}
+        Objet : \object
+
+        \begin{flushright}
+        	\senderlocation,
+            \\
+            Le \today,
+        \end{flushright}
+    }
+    {
+        \ifthenelse{\equal{\lang}{british}}
+        {
+       	 	\begin{flushright}
+    	    	\noindent\noindent\sender
+                \\~\\
+                \today,
+    	    \end{flushright}
+    	    
+    	    \noindent\recipient
+
+            \vspace{\baselineskip}
+            {\noindent}Subject: \object
+            \vspace{\baselineskip}
+        }
+        {
+            Unknown language ``\lang''
+        }
+    }
+
+    %--------------------------------------
+    % Body
+    %--------------------------------------
+    \opening{Dear Sir or Madam,}
+
+    \lipsum[1-5]
+
+    \closing{Best Regards,}
+
+    \ifthenelse{\equal{\lang}{french}}
+        {
+            \begin{flushright}
+                \signature
+            \end{flushright}
+        }
+        {
+            \ifthenelse{\equal{\lang}{british}}
+                {
+                    \center
+                    \signature
+                }
+                {}
+        }
+
+
+
+
+
+    % \ifthenelse{\equal{\lang}{french}}
+    % {
+    %     Language \lang
+    % }
+    % {
+    %     \ifthenelse{\equal{\lang}{british}}
+    %     {
+    %         Language british
+    %     }
+    %     {
+    %         Unknown language ``\lang''
+    %     }
+    % }
+\end{document}
